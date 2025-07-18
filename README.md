@@ -1,4 +1,5 @@
 Overview
+
 A simple Python-based slot machine game where players can deposit money, place bets, and spin to win.
 
 Features
