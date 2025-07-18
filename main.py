@@ -92,7 +92,7 @@ def get_bet():
             if(MIN_BET<=amount<=MAX_BET):
                 break
             else:
-                print(f"Amount should be between ${MIN_BET}-${MAX_BET}")
+                print(f"Amount should be between ₹{MIN_BET}-₹{MAX_BET}")
         else:
             print("Please enter a number")
     
@@ -113,7 +113,7 @@ def spin(balance):
     slots=get_spin(ROWS,COLS,symbol_count)
     print_slot_machine(slots)
     winnings,winning_lines=check_winnings(slots,lines,bet,symbol_values)
-    print(f"You won ${winnings}")
+    print(f"You won ₹{winnings}")
     if winning_lines:
         print(f"You won on", *winning_lines, "line(s)")
     else:
@@ -122,12 +122,33 @@ def spin(balance):
     return winnings-total_bet
 
 def main():
-    balance=deposit()
+    balance = deposit()
     while True:
-        print(f"Current balance is ${balance}")
-        answer=input("Press enter to play (q to quit)")
-        if answer=="q" or answer=="Q":
+        print(f"Current balance is ₹{balance}")
+        if balance <= 0:
+            print("You've run out of money!")
+            answer = input("Would you like to deposit more? (y/n): ")
+            if answer.lower() == 'y':
+                balance += deposit()
+                continue
+            else:
+                break
+                
+        answer = input("Press enter to play (q to quit)")
+        if answer == "q" or answer == "Q":
             break
-        balance+=spin(balance)
+        balance += spin(balance)
     print("You left with ₹",balance)
+
+# def main():
+#     balance=deposit()
+#     while True:
+#         print(f"Current balance is ₹{balance}")
+#         answer=input("Press enter to play (q to quit)")
+#         if answer=="q" or answer=="Q":
+#             break
+#         balance+=spin(balance)
+#     print("You left with ₹",balance)
+
+
 main()
